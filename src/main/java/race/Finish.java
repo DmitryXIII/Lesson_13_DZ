@@ -13,6 +13,6 @@ public class Finish extends Stage {
         } else {
             System.out.println("======== ВНИМАНИЕ! ========\nВ гонке победил " + c.getName() + "!\n===========================");
         }
-        Lesson_13_DZ.cdl_isAllCarsFinished.countDown();
+        Lesson_13_DZ.CDL_IS_ALL_CARS_FINISHED.countDown();
     }
 }

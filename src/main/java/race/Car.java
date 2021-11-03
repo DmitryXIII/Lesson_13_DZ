@@ -37,9 +37,9 @@ public class Car implements Runnable {
             Thread.sleep(500 + (int) (Math.random() * 800));
             System.out.println(this.name + " готов");
 
-            Lesson_13_DZ.cdl_isAllCarsReady.countDown();
+            Lesson_13_DZ.CDL_IS_ALL_CARS_READY.countDown();
 
-            Lesson_13_DZ.cdl_raceStarted.await(); // ждем, пока не будет сигнала о начале гонки
+            Lesson_13_DZ.CDL_RACE_STARTED.await(); // ждем, пока не будет сигнала о начале гонки
 
             for (int i = 0; i < race.getStages().size(); i++) {
                 race.getStages().get(i).go(this);
