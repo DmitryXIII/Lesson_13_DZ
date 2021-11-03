@@ -26,19 +26,27 @@ public class Lesson_13_DZ {
 
             CDL_IS_ALL_CARS_READY.await(); // ждем, пока все машины не будут готовы
 
-            System.out.println("<<< 3 >>>");
-            Thread.sleep(1000);
-            System.out.println("<<< 2 >>>");
-            Thread.sleep(1000);
-            System.out.println("<<< 1 >>>");
-            Thread.sleep(1000);
-            System.out.println("<<< СТАРТ >>>");
+            startsCountDown(1000);
 
             CDL_RACE_STARTED.countDown(); // сигнал машинам, что гонка началась
 
             CDL_IS_ALL_CARS_FINISHED.await(); // ждем, пока все машины не финишируют
 
             System.out.println("<<< ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка закончилась!!!");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void startsCountDown(int delay) {
+        try {
+            System.out.println("<<< 3 >>>");
+            Thread.sleep(delay);
+            System.out.println("<<< 2 >>>");
+            Thread.sleep(delay);
+            System.out.println("<<< 1 >>>");
+            Thread.sleep(delay);
+            System.out.println("<<< СТАРТ >>>");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
