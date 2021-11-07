@@ -9,6 +9,7 @@ public class Lesson_13_DZ {
     private static CountDownLatch CDL_RACE_STARTED = new CountDownLatch(1);
     private static CountDownLatch CDL_IS_ALL_CARS_FINISHED = new CountDownLatch(CARS_COUNT);
     private static Semaphore TUNNEL_SEMAPHORE = new Semaphore(CARS_COUNT / 2);
+    private static Semaphore FINISH_SEMAPHORE = new Semaphore(1); // семафор для корректной фиксации финиша участников
 
     public static void main(String[] args) {
         try {
@@ -66,5 +67,9 @@ public class Lesson_13_DZ {
 
     public static Semaphore getTunnelSemaphore() {
         return TUNNEL_SEMAPHORE;
+    }
+
+    public static Semaphore getFinishSemaphore() {
+        return FINISH_SEMAPHORE;
     }
 }

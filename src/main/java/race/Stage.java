@@ -5,4 +5,6 @@ public abstract class Stage {
     protected String description;
 
     public abstract void go(Car c);
+
+
 }

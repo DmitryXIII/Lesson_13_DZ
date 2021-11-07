@@ -6,6 +6,15 @@ public class Car implements Runnable {
     private Race race;
     private int speed;
     private String name;
+    private boolean isLastStageRunning;
+
+    public Car(Race race, int speed) {
+        this.race = race;
+        this.speed = speed;
+        CARS_STARTED_COUNT++;
+        this.name = "Участник #" + CARS_STARTED_COUNT;
+        this.isLastStageRunning = false;
+    }
 
     public String getName() {
         return name;
@@ -15,11 +24,8 @@ public class Car implements Runnable {
         return speed;
     }
 
-    public Car(Race race, int speed) {
-        this.race = race;
-        this.speed = speed;
-        CARS_STARTED_COUNT++;
-        this.name = "Участник #" + CARS_STARTED_COUNT;
+    public boolean isLastStageRunning() {
+        return isLastStageRunning;
     }
 
     @Override
@@ -34,10 +40,19 @@ public class Car implements Runnable {
             Lesson_13_DZ.getCdlRaceStarted().await(); // ждем, пока не будет сигнала о начале гонки
 
             for (int i = 0; i < race.getStages().size(); i++) {
-                race.getStages().get(i).go(this);
-                if (i == race.getStages().size() - 1) {
+                if (i < race.getStages().size() - 1) {
+                    race.getStages().get(i).go(this);
+                } else {
+                    this.isLastStageRunning = true;
+                    race.getStages().get(i).go(this);
+                    Lesson_13_DZ.getFinishSemaphore().acquire();
                     CARS_FINISHED_COUNT++;
-                    System.out.println(CARS_FINISHED_COUNT == 1 ? "ПОБЕДИТЕЛЬ - " + this.getName() : "ЗАНЯЛ " + CARS_FINISHED_COUNT + " место - " + this.getName());
+                    if (CARS_FINISHED_COUNT == 1) {
+                        System.out.println(this.getName() + " закончил этап: " + race.getStages().get(i).description + "\nПОБЕДИТЕЛЬ - " + this.getName());
+                    } else {
+                        System.out.println(this.getName() + " закончил этап: " + race.getStages().get(i).description + "\nЗАНЯЛ " + CARS_FINISHED_COUNT + " МЕСТО - " + this.getName());
+                    }
+                    Lesson_13_DZ.getFinishSemaphore().release();
                     Lesson_13_DZ.getCdlIsAllCarsFinished().countDown();
                 }
             }
