@@ -2,8 +2,7 @@ package race;
 
 public class Car implements Runnable {
     private static int CARS_STARTED_COUNT;
-    protected static volatile int CARS_FINISHED_COUNT;
-    private int roadCount;
+    protected static volatile int CARS_FINISHED_COUNT = 0;
     private Race race;
     private int speed;
     private String name;
@@ -17,19 +16,10 @@ public class Car implements Runnable {
     }
 
     public Car(Race race, int speed) {
-        this.roadCount = 0;
         this.race = race;
         this.speed = speed;
         CARS_STARTED_COUNT++;
         this.name = "Участник #" + CARS_STARTED_COUNT;
-    }
-
-    public int getRoadCount() {
-        return roadCount;
-    }
-
-    public void setRoadCount() {
-        this.roadCount++;
     }
 
     @Override

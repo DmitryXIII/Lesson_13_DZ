@@ -8,7 +8,7 @@ public class Lesson_13_DZ {
     private static CountDownLatch CDL_IS_ALL_CARS_READY = new CountDownLatch(CARS_COUNT);
     private static CountDownLatch CDL_RACE_STARTED = new CountDownLatch(1);
     private static CountDownLatch CDL_IS_ALL_CARS_FINISHED = new CountDownLatch(CARS_COUNT);
-    private static Semaphore TUNNEL_SEMAPHORE = new Semaphore(CARS_COUNT / 2); // одновременно в тоннеле не больше половины участников
+    private static Semaphore TUNNEL_SEMAPHORE = new Semaphore(CARS_COUNT / 2);
 
     public static void main(String[] args) {
         try {
