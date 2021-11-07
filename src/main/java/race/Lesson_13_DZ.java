@@ -8,12 +8,12 @@ public class Lesson_13_DZ {
     private static CountDownLatch CDL_IS_ALL_CARS_READY = new CountDownLatch(CARS_COUNT);
     private static CountDownLatch CDL_RACE_STARTED = new CountDownLatch(1);
     private static CountDownLatch CDL_IS_ALL_CARS_FINISHED = new CountDownLatch(CARS_COUNT);
-    private static Semaphore TUNNEL_SEMAPHORE = new Semaphore((int) Math.floor(CARS_COUNT / 2)); // одновременно в тоннеле не больше половины участников
+    private static Semaphore TUNNEL_SEMAPHORE = new Semaphore(CARS_COUNT / 2); // одновременно в тоннеле не больше половины участников
 
     public static void main(String[] args) {
         try {
             System.out.println("<<< ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Подготовка!!!");
-            Race race = new Race(new Road(60), new Tunnel(), new Road(40), new Finish());
+            Race race = new Race(new Road(60), new Tunnel(), new Road(40));
             Car[] cars = new Car[CARS_COUNT];
 
             for (int i = 0; i < cars.length; i++) {
