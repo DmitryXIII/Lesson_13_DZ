@@ -2,11 +2,11 @@ package race;
 
 public class Car implements Runnable {
     private static int CARS_STARTED_COUNT;
-    protected static volatile int CARS_FINISHED_COUNT = 0;
+    protected static volatile int CARS_FINISHED_COUNT; // счетчик финишировавших
     private Race race;
     private int speed;
     private String name;
-    private boolean isLastStageRunning;
+    private boolean isLastStageRunning; // проверка, начинает ли участник последний этап гонки
 
     public Car(Race race, int speed) {
         this.race = race;
@@ -40,9 +40,11 @@ public class Car implements Runnable {
             Lesson_13_DZ.getCdlRaceStarted().await(); // ждем, пока не будет сигнала о начале гонки
 
             for (int i = 0; i < race.getStages().size(); i++) {
+                // если текущий этап не последний
                 if (i < race.getStages().size() - 1) {
                     race.getStages().get(i).go(this);
                 } else {
+                    // если текущий этап последний
                     this.isLastStageRunning = true;
                     race.getStages().get(i).go(this);
                     Lesson_13_DZ.getFinishSemaphore().acquire();
